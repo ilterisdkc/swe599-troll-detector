@@ -22,4 +22,4 @@ cd app & python3 -m flask run
 
 ![main_page](https://github.com/ilterisdkc/swe599-troll-detector/blob/main/main-page.png)
 
-![results](https://github.com/ilterisdkc/swe599-troll-detector/blob/main/Results for Obama Tweet.png)
+![results](https://github.com/ilterisdkc/swe599-troll-detector/blob/main/results_page.png)
