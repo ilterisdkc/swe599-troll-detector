@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 style="color: #0b7dda">Google Perspective API Results</h1>
+
+<div class="wrapper">
+    <div class="item item--1" id="piechart"></div>
+    <div class="item item--2" id="piechart_threat"></div>
+    <div class="item item--3" id="piechart_insult"></div>
+    <div class="item item--4" id="piechart_identity_attack"></div>
+    <div class="item item--5" id="piechart_profanity"></div>
+    <div class="item item--6" id="piechart_troll"></div>
+    <div class="item item--7" id="columnchart_compare"></div>
+    <div class="item item--8">
+        <p style="width: 390px; height: 190px; font-size: 25px; font-style: italic">" {{ message }} "</p>
+        <p style="width: 390px; height: 50px; background-color: red; text-align: center">{{ combined_result }}</p>
+    </div>
+</div>
+
+</body>
+<html>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawColumnChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data_toxicity = google.visualization.arrayToDataTable([
+  ['TOXICITY', ''],
+  ['TOXIC', {{ toxicity }}],
+  ['NON_TOXIC', 1-{{ toxicity }}]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_toxicity = {
+      'title':'TOXICITY Score',
+      'width':400,
+      'height':300,
+      'colors': ['#e0440e', '#f6c7b6']
+  };
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart_toxicity = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart_toxicity.draw(data_toxicity, options_toxicity);
+
+  //draw Threat chart
+  var data_threat = google.visualization.arrayToDataTable([
+  ['THREAT', ''],
+  ['THREAT', {{ threat }}],
+  ['NOT_THREAT', 1-{{ threat }}]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_threat = {'title':'THREAT Score', 'width':400, 'height':300, 'colors': ['#0708FF', '#49F0FF']};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart_threat = new google.visualization.PieChart(document.getElementById('piechart_threat'));
+  chart_threat.draw(data_threat, options_threat);
+
+  //draw Insult chart
+  var data_insult = google.visualization.arrayToDataTable([
+  ['INSULT', ''],
+  ['INSULT', {{ insult }}],
+  ['NOT_INSULT', 1-{{ insult }}]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_insult = {'title':'INSULT Score', 'width':400, 'height':300, 'colors': ['#BA08FF', '#F1CBFF']};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart_insult = new google.visualization.PieChart(document.getElementById('piechart_insult'));
+  chart_insult.draw(data_insult, options_insult);
+
+  //draw Identity_Attack chart
+  var data_identity_attack = google.visualization.arrayToDataTable([
+  ['IDENTITY_ATTACK', ''],
+  ['IDENTITY_ATTACK', {{ identity_attack }}],
+  ['NOT_IDENTITY_ATTACK', 1-{{ identity_attack }}]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_identity_attack = {'title':'IDENTITY ATTACK Score', 'width':400, 'height':300, 'colors': ['#08FF9E', '#CDFFDE']};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart_identity_attack = new google.visualization.PieChart(document.getElementById('piechart_identity_attack'));
+  chart_identity_attack.draw(data_identity_attack, options_identity_attack);
+
+  //draw Profanity chart
+  var data_profanity = google.visualization.arrayToDataTable([
+  ['PROFANITY', ''],
+  ['PROFANITY', {{ profanity }}],
+  ['NOT_PROFANITY', 1-{{ profanity }}]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_profanity = {'title':'PROFANITY Score', 'width':400, 'height':300, 'colors': ['#FFAB03', '#FFF1C2']};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart_profanity = new google.visualization.PieChart(document.getElementById('piechart_profanity'));
+  chart_profanity.draw(data_profanity, options_profanity);
+
+  //draw TROLL RESULT CHART
+  var data_troll = google.visualization.arrayToDataTable([
+  ['TROLL', ''],
+  ['TROLL', {{ troll }}],
+  ['NOT_TROLL', 1-{{ troll }}]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_troll = {
+      'title':'TROLL PREDICTION based on Google Perspective API',
+      'width':400,
+      'height':300,
+      'colors': ['#e0440e', '#f6c7b6']
+  };
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart_troll = new google.visualization.PieChart(document.getElementById('piechart_troll'));
+  chart_troll.draw(data_troll, options_troll);
+
+}
+
+function drawColumnChart() {
+    //draw Compare Result CHART
+  var data_compare = google.visualization.arrayToDataTable([
+  ["Troll Prediction", "", { role: "style" }],
+  ["TROLL", {{ chuachinhon_result }}, "red"],
+  ["NOT_TROLL", 1-{{ chuachinhon_result }}, "blue"]
+]);
+
+  var view = new google.visualization.DataView(data_compare);
+  view.setColumns([0, 1,
+               { calc: "stringify",
+                 sourceColumn: 1,
+                 type: "string",
+                 role: "annotation" },
+               2]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options_compare = {
+        title: "Chuachinhon's Prediction",
+        width: 400,
+        height: 300,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+  };
+
+  // Display the chart inside the <div> element with id="columnchart"
+  var chart_compare = new google.visualization.ColumnChart(document.getElementById('columnchart_compare'));
+  chart_compare.draw(data_compare, options_compare);
+}
+</script>
+<style>
+    .wrapper {
+    display: grid;
+    grid-template-rows: 310px 310px;
+    grid-template-columns: 410px 410px 410px 410px;
+    grid-gap: 20px;
+    background-color: #fff;
+    color: #444;
+    border-color: black;
+}
+
+    .item {
+    padding: 5px;
+    font-size: 30px;
+    font-family: sans-serif;
+    color: white;
+    border: 1px solid black;
+        background-color: #0b7dda;
+    }
+
+    .item--7 {
+        background-color: darkred;
+    }
+
+    .item--7 {
+        background-color: white;
+    }
+
+</style>
