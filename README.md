@@ -20,6 +20,6 @@ pip3 install -r requirements.txt
 •	Run flask application in the app folder: 
 cd app & python3 -m flask run
 
-![](../main-page.png)
+![main_page](https://github.com/ilterisdkc/swe599-troll-detector/blob/main/main-page.png)
 
-![](../Results for Obama Tweet.png)
+![results](https://github.com/ilterisdkc/swe599-troll-detector/blob/main/Results for Obama Tweet.png)
