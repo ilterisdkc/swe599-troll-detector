@@ -16,12 +16,16 @@ DEPLOYMENT:
 
 •	Copy source folders of Chuachinhon’s transformers_state_trolls_cch project ( https://www.dropbox.com/sh/lk9blbafnvlzo28/AAA0RoAurXg_QPCxT5SG-slFa?dl=0 )
 These files should be under project directory (under swe599-troll-detector folder)
+
 •	Create a virtual environment in the project root directory: 
 python3 -m venv venv
+
 •	Activate  virtual environment: 
 source venv/bin/activate
+
 •	Install requirments of the project: 
 pip3 install -r requirements.txt
+
 •	Run flask application in the app folder: 
 cd app & python3 -m flask run
 
